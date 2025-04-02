@@ -4,19 +4,21 @@ const mongoose=require("mongoose");
 const bcrypt = require('bcryptjs');
 const dotenv = require('dotenv');
 const User = require("./Schema");
+const router=require("./Routes")
 
 dotenv.config();
 const app=express();
 app.use(express.json());
-const port = 3010;
+app.use('/user',router);
+
+
+const port = 3006;
 const MONGO_URI = process.env.MONGO_URI;
 
 const db = async()=>{await mongoose.connect(MONGO_URI)
     .then(() => {
         console.log('MongoDB Connected');
-        app.listen(port, () => {
-            console.log(`Server running on port ${PORT}`);
-        });
+       
     })
     .catch(err => {
         console.error('MongoDB connection failed:', err.message);
